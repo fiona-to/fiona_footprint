@@ -22,7 +22,7 @@ app.use(isAuth);
 // option set to false are deprecated
 // 2. (node:1632) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 mongoose.connect(
-  "mongodb+srv://phuongto:Msjfeng82@cluster0-vwuwt.mongodb.net/test?retryWrites=true&w=majority",
+  "mongodb+srv://phuongto:Msjfeng82@cluster0-vwuwt.mongodb.net/fiona_footprint?retryWrites=true&w=majority",
   { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }
 );
 mongoose.connection.once("open", () => {
