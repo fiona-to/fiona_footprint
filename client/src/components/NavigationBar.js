@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../contexts/auth-context";
 //Source from: https:// longfordpc.com/explore/vine-clipart-pink-rose/
@@ -20,31 +20,36 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "cover",
     backgroundPosition: "center"
   },
-  title: {
-    flexGrow: 1,
+  header: {
     color: "#c70d3a",
     fontSize: 28,
-    height: 60
+    display: "inline"
+  },
+  emptyBox: {
+    flexGrow: 1
   },
   toolBar: {
-    minHeight: 40
+    minHeight: 23,
+    backgroundColor: "#eeeeee"
   },
   navLinkText: {
     "&:hover": {
-      color: "#e88484"
+      color: "#42b883"
     },
     color: "#c70d3a",
-    flex: 1,
-    marginTop: 25,
-    fontSize: 16
+    fontSize: 14,
+    lineHeight: 3
   },
   addButton: {
     marginTop: 7,
-    minHeight: 28,
-    width: 28,
-    height: 28,
+    minHeight: 23,
+    width: 23,
+    height: 23,
     color: "#c70d3a",
     backgroundColor: "#d1eecc"
+  },
+  verLine: {
+    color: "#c70d3a"
   }
 }));
 
@@ -54,9 +59,10 @@ const NavigationBar = props => {
 
   return (
     <AppBar position="static" className={`${classes.root} ${classes.bgImage}`}>
-      <Typography variant="h6" className={classes.title}>
+      <Typography variant="h6" className={classes.header}>
         Fiona's Footprint
       </Typography>
+      <Typography variant="h6" className={classes.emptyBox}></Typography>
       <Toolbar className={classes.toolBar}>
         <Grid justify="space-between" container>
           <Grid item xs={11} sm={5} md={5}>
@@ -64,24 +70,36 @@ const NavigationBar = props => {
               Travel Fact
             </NavLink>
             {token && (
-              <NavLink to="/AddAuthor" className={classes.navLinkText}>
-                &nbsp;|&nbsp;Owner
-              </NavLink>
+              <Fragment>
+                <span className={classes.verLine}>&nbsp;|&nbsp;</span>
+                <NavLink to="/AddAuthor" className={classes.navLinkText}>
+                  Owner
+                </NavLink>
+              </Fragment>
             )}
             {token && profile === "admin" && (
-              <NavLink to="/AddUser" className={classes.navLinkText}>
-                &nbsp;|&nbsp;User
-              </NavLink>
+              <Fragment>
+                <span className={classes.verLine}>&nbsp;|&nbsp;</span>
+                <NavLink to="/AddUser" className={classes.navLinkText}>
+                  User
+                </NavLink>
+              </Fragment>
             )}
             {!token && (
-              <NavLink to="/Login" className={classes.navLinkText}>
-                &nbsp;|&nbsp;Login
-              </NavLink>
+              <Fragment>
+                <span className={classes.verLine}>&nbsp;|&nbsp;</span>
+                <NavLink to="/Login" className={classes.navLinkText}>
+                  Login
+                </NavLink>
+              </Fragment>
             )}
             {token && (
-              <NavLink to="/Logout" className={classes.navLinkText}>
-                &nbsp;|&nbsp;Logout
-              </NavLink>
+              <Fragment>
+                <span className={classes.verLine}>&nbsp;|&nbsp;</span>
+                <NavLink to="/Logout" className={classes.navLinkText}>
+                  Logout
+                </NavLink>
+              </Fragment>
             )}
           </Grid>
           <Grid item xs={1} sm={1} md={1}>

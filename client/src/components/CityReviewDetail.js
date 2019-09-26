@@ -9,6 +9,9 @@ const useStyle = makeStyles(theme => ({
   description: {
     textAlign: "left",
     fontWeight: "fontWeightLight"
+  },
+  moreBottomSpace: {
+    marginBottom: 50
   }
 }));
 
@@ -30,6 +33,7 @@ const CityReviewDetail = ({ data }) => {
               alt="cloudinary"
               height="250"
               width="330"
+              className={classes.moreBottomSpace}
             />
           </p>
         </Fragment>

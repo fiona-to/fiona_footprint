@@ -266,7 +266,7 @@ function AddAuthor(props) {
 
   return (
     <Fragment>
-      <Grid container className={classes.root} spacing={1}>
+      <Grid container className={classes.root} spacing={0}>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>{displayAuthorList()}</Paper>
         </Grid>

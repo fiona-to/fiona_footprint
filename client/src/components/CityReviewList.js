@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     marginTop: 5,
     marginBottom: 5,
-    height: 520,
+    width: "100%",
+    height: 500,
     overflowY: "auto"
   },
   btnEdit: {
@@ -171,7 +172,7 @@ const CityReviewList = props => {
 
   return (
     <Fragment>
-      <Grid container className={classes.root} spacing={1}>
+      <Grid container className={classes.root} spacing={0}>
         <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>{displayCityReviewList()}</Paper>
         </Grid>

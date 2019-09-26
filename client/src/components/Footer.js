@@ -9,9 +9,14 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  footer: {
     flexGrow: 1,
-    height: 56
+    height: 56,
+    position: "fixed",
+    bottom: 0,
+    width: "100%",
+    //backgroundColor: "#ffcbcb"
+    backgroundColor: "#eeeeee"
   },
   foodDrink: {
     width: 24,
@@ -79,7 +84,7 @@ const Footer = props => {
     <BottomNavigation
       value={value}
       onChange={handleSelectChange}
-      className={classes.root}
+      className={classes.footer}
       showLabels
     >
       {displayInterest()}

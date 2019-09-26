@@ -33,6 +33,9 @@ const styles = {
   formControl: {
     width: 300,
     margin: "normal"
+  },
+  moreBottomSpace: {
+    marginBottom: 50
   }
 };
 
@@ -334,6 +337,7 @@ class AddCityReview extends Component {
               </div>
               <br />
               <Button
+                className={classes.moreBottomSpace}
                 type="primary"
                 disabled={!this.isSaveBtnEnabled()}
                 onClick={this.handSubmit}
