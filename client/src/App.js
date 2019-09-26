@@ -23,7 +23,7 @@ import Footer from "./components/Footer";
 //   uri: 'http://localhost:4000/graphql
 // });
 const link = createUploadLink({
-  uri: "http://localhost:4000/graphql"
+  uri: "/graphql"
 });
 const cache = new InMemoryCache();
 
