@@ -41,7 +41,7 @@ cloudinary.config({
 const storeUpload = ({ stream, filename }) => {
   const id = shortid.generate();
   const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
-
+  console.log(targetPath);
   return new Promise((resolve, reject) =>
     stream
       .on("error", error => reject(error))
@@ -263,6 +263,7 @@ const Mutation = new GraphQLObjectType({
           const { filename, mimetype, createReadStream } = await args.photo;
           const stream = createReadStream();
           const { targetPath } = await storeUpload({ stream, filename });
+          console.log(targetPath);
           try {
             const photo = await cloudinary.uploader.upload(targetPath, {
               use_filename: true,
