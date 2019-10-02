@@ -41,6 +41,7 @@ cloudinary.config({
 const storeUpload = ({ stream, filename }) => {
   const id = shortid.generate();
   const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
+  return targetPath;
   // return new Promise((resolve, reject) =>
   //   stream
   //     .on("error", error => reject(error))
