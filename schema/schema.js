@@ -257,12 +257,14 @@ const Mutation = new GraphQLObjectType({
       async resolve(parent, args) {
         let imageUrl = "",
           imagePublicId = "";
+        let targetPath = "";
 
         // Proceed if photo exists
         if (args.photo) {
           const { filename, mimetype, createReadStream } = await args.photo;
           const stream = createReadStream();
-          const { targetPath } = await storeUpload({ stream, filename });
+          targetPath = await storeUpload({ stream, filename });
+          //const { targetPath } = await storeUpload({ stream, filename });
 
           // try {
           //   const photo = await cloudinary.uploader.upload(targetPath, {
