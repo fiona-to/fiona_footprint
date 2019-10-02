@@ -41,13 +41,13 @@ cloudinary.config({
 const storeUpload = ({ stream, filename }) => {
   const id = shortid.generate();
   const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
-  return new Promise((resolve, reject) =>
-    stream
-      .on("error", error => reject(error))
-      .pipe(fs.createWriteStream(targetPath))
-      .on("error", error => reject(error))
-      .on("finish", () => resolve({ targetPath }))
-  );
+  // return new Promise((resolve, reject) =>
+  //   stream
+  //     .on("error", error => reject(error))
+  //     .pipe(fs.createWriteStream(targetPath))
+  //     .on("error", error => reject(error))
+  //     .on("finish", () => resolve({ targetPath }))
+  // );
 };
 
 // Schema file has 3 responsibilities
@@ -262,6 +262,7 @@ const Mutation = new GraphQLObjectType({
           const { filename, mimetype, createReadStream } = await args.photo;
           const stream = createReadStream();
           const { targetPath } = await storeUpload({ stream, filename });
+
           // try {
           //   const photo = await cloudinary.uploader.upload(targetPath, {
           //     use_filename: true,
