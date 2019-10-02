@@ -40,8 +40,8 @@ cloudinary.config({
 // Store uploaded image from client (React) --> local system (folder)
 const storeUpload = ({ stream, filename }) => {
   const id = shortid.generate();
-  const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
-  return targetPath;
+  //const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
+  return __dirname;
   // return new Promise((resolve, reject) =>
   //   stream
   //     .on("error", error => reject(error))
@@ -257,13 +257,13 @@ const Mutation = new GraphQLObjectType({
       async resolve(parent, args) {
         let imageUrl = "",
           imagePublicId = "";
-        let targetPath = "";
+        //let targetPath = "";
 
         // Proceed if photo exists
         if (args.photo) {
           const { filename, mimetype, createReadStream } = await args.photo;
           const stream = createReadStream();
-          targetPath = await storeUpload({ stream, filename });
+          //targetPath = await storeUpload({ stream, filename });
           //const { targetPath } = await storeUpload({ stream, filename });
 
           // try {
