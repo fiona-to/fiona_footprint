@@ -41,7 +41,6 @@ cloudinary.config({
 const storeUpload = ({ stream, filename }) => {
   const id = shortid.generate();
   const targetPath = path.join(__dirname, `../uploads/${id}-${filename}`);
-  console.log(targetPath);
   return new Promise((resolve, reject) =>
     stream
       .on("error", error => reject(error))
@@ -263,31 +262,30 @@ const Mutation = new GraphQLObjectType({
           const { filename, mimetype, createReadStream } = await args.photo;
           const stream = createReadStream();
           const { targetPath } = await storeUpload({ stream, filename });
-          console.log(targetPath);
-          try {
-            const photo = await cloudinary.uploader.upload(targetPath, {
-              use_filename: true,
-              unique: false
-            });
-            imageUrl = cloudinary.url(`${photo.public_id}.${photo.format}`);
-            imagePublicId = photo.public_id;
-            // delete image after uploading to cloudinary
-            fs.unlink(targetPath, err => {
-              if (err) {
-                throw new Error(err);
-              }
-              console.log("Uploaded image was deleted from Node server!");
-            });
-          } catch (error) {
-            throw new Error(error);
-          }
+          // try {
+          //   const photo = await cloudinary.uploader.upload(targetPath, {
+          //     use_filename: true,
+          //     unique: false
+          //   });
+          //   imageUrl = cloudinary.url(`${photo.public_id}.${photo.format}`);
+          //   imagePublicId = photo.public_id;
+          //   // delete image after uploading to cloudinary
+          //   fs.unlink(targetPath, err => {
+          //     if (err) {
+          //       throw new Error(err);
+          //     }
+          //     console.log("Uploaded image was deleted from Node server!");
+          //   });
+          // } catch (error) {
+          //   throw new Error(error);
+          // }
         }
 
         let cityReview = new CityReview({
           name: args.name,
           country: args.country,
           description: args.description,
-          imageUrl: imageUrl,
+          imageUrl: targetPath,
           authorId: args.authorId,
           interestId: args.interestId,
           imagePublicId: imagePublicId
