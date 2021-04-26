@@ -6,7 +6,7 @@ import {
   getAuthorList,
   deleteAuthor,
   GET_AUTHOR_DETAIL,
-  UPDATE_AUTHOR
+  UPDATE_AUTHOR,
 } from "../queries/author";
 // Material UI
 import {
@@ -20,16 +20,16 @@ import {
   TextField,
   FormControl,
   Button,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: 20,
@@ -38,29 +38,29 @@ const useStyles = makeStyles(theme => ({
     marginTop: 5,
     marginBottom: 5,
     height: 500,
-    overflowY: "auto"
+    overflowY: "auto",
   },
   btnEdit: {
     margin: theme.spacing(1),
-    color: "#ff8080"
+    color: "#ff8080",
   },
   btnDelete: {
     margin: theme.spacing(1),
-    color: "#ffcbcb"
+    color: "#ffcbcb",
   },
   formControl: {
     width: 300,
-    margin: "normal"
-  }
+    margin: "normal",
+  },
 }));
 
 const StyledListItem = withStyles({
   root: {
     "&$selected": {
-      backgroundColor: "#d1eecc"
-    }
+      backgroundColor: "#d1eecc",
+    },
   },
-  selected: {}
+  selected: {},
 })(ListItem);
 
 function AddAuthor(props) {
@@ -82,36 +82,36 @@ function AddAuthor(props) {
     }
   }, [props.isAdd]);
 
-  const handleDeleteAuthor = id => {
+  const handleDeleteAuthor = (id) => {
     props
       .deleteAuthorMutation({
         variables: {
-          authorId: id
+          authorId: id,
         },
-        refetchQueries: [{ query: getAuthorList }]
+        refetchQueries: [{ query: getAuthorList }],
       })
-      .then(data => {
+      .then((data) => {
         setIsViewMode(false);
         props.handleAddTopic(false);
         props.handleEditTopic(false);
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err);
       });
   };
 
-  const loadAuthorDetail = id => {
+  const loadAuthorDetail = (id) => {
     props.client
       .query({
         query: GET_AUTHOR_DETAIL,
-        variables: { id: id }
+        variables: { id: id },
       })
-      .then(data => {
+      .then((data) => {
         setAuthorId(id);
         setName(data.data.author.name);
         setDescription(data.data.author.description);
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err);
       });
   };
@@ -139,7 +139,7 @@ function AddAuthor(props) {
         </div>
       );
     } else {
-      return data.authorList.map(author => (
+      return data.authorList.map((author) => (
         <List key={author.id} component="ul">
           <StyledListItem
             button
@@ -179,7 +179,7 @@ function AddAuthor(props) {
   };
 
   // Handle value change
-  const handleTextChange = e => {
+  const handleTextChange = (e) => {
     //this.setState({ [e.target.id]: e.target.value });
     switch (e.target.id) {
       case "name":
@@ -193,7 +193,7 @@ function AddAuthor(props) {
     }
   };
 
-  const handleCancel = e => {
+  const handleCancel = (e) => {
     setName("");
     setDescription("");
     setAuthorId("");
@@ -207,27 +207,26 @@ function AddAuthor(props) {
   };
 
   // Handle submit form
-  const handSubmit = e => {
+  const handSubmit = (e) => {
     e.preventDefault();
     if (props.isAdd) {
       props
         .addAuthorMutation({
           variables: {
             name: name,
-            description: description
+            description: description,
           },
-          refetchQueries: [{ query: getAuthorList }]
+          refetchQueries: [{ query: getAuthorList }],
         })
-        .then(data => {
+        .then((data) => {
           // TODO: DOUBLE CHECK BACK-END CODE
           // ABOUT RETURNING OBJ BY OTHER CODE
-          // console.log(data);
           setName(data.data.addAuthor.name);
           setDescription(data.data.addAuthor.description);
           setAuthorId(data.data.addAuthor.id);
           loadViewMode();
         })
-        .catch(err => {
+        .catch((err) => {
           throw new Error(err);
         });
     } else if (props.isEdit) {
@@ -237,14 +236,14 @@ function AddAuthor(props) {
           variables: {
             id: authorId,
             name: name,
-            description: description
+            description: description,
           },
-          refetchQueries: [{ query: getAuthorList }]
+          refetchQueries: [{ query: getAuthorList }],
         })
-        .then(data => {
+        .then((data) => {
           loadViewMode();
         })
-        .catch(err => {
+        .catch((err) => {
           throw new Error(err);
         });
     }

@@ -8,30 +8,29 @@ import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   footer: {
     flexGrow: 1,
     height: 56,
     position: "fixed",
     bottom: 0,
     width: "100%",
-    //backgroundColor: "#ffcbcb"
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#eeeeee",
   },
   foodDrink: {
     width: 24,
-    height: 24
+    height: 24,
   },
   interestText: {
-    color: "#ff8080"
-  }
+    color: "#ff8080",
+  },
 }));
 
-const Footer = props => {
+const Footer = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState("5d4b0ebf57981e0654f5bebf");
 
-  const displayIcon = value => {
+  const displayIcon = (value) => {
     let name = value.toLowerCase();
     switch (name) {
       case "place":
@@ -64,7 +63,7 @@ const Footer = props => {
       return <div>loading...</div>;
     } else {
       let { interestList } = props.data;
-      return interestList.map(interest => (
+      return interestList.map((interest) => (
         <BottomNavigationAction
           label={interest.name}
           key={interest.id}

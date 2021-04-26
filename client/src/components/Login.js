@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
   Container,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
@@ -19,32 +19,32 @@ import AuthContext from "../contexts/auth-context";
 // Queries
 import { verifyUserLogin } from "../queries/user";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    height: 430
+    height: 430,
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   hidden: {
-    display: "none"
+    display: "none",
   },
   errMessage: {
     diplay: "inline-block",
-    color: "red"
-  }
+    color: "red",
+  },
 }));
 
 function Login(props) {
@@ -55,28 +55,28 @@ function Login(props) {
   const { login } = useContext(AuthContext);
   const classes = useStyles();
 
-  const handleFormSubmit = e => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     props
       .UserVerification({
         variables: {
           email: email,
-          password: password
-        }
+          password: password,
+        },
       })
-      .then(data => {
+      .then((data) => {
         // fill respond's data to Auth Contect's object
         login({
           userId: data.data.verifyUserLogin.userId,
           token: data.data.verifyUserLogin.token,
           tokenExp: data.data.verifyUserLogin.tokenExp,
-          profile: data.data.verifyUserLogin.profile
+          profile: data.data.verifyUserLogin.profile,
         });
 
         setErrMsg(null);
         props.handleLogIn(true);
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.message.includes("User")) {
           setErrMsg("User does not exist!");
         } else if (err.message.includes("password")) {
@@ -87,7 +87,7 @@ function Login(props) {
       });
   };
 
-  const handleTextFieldChange = e => {
+  const handleTextFieldChange = (e) => {
     switch (e.target.id) {
       case "email":
         setEmail(e.target.value);
@@ -164,4 +164,3 @@ function Login(props) {
   );
 }
 export default graphql(verifyUserLogin, { name: "UserVerification" })(Login);
-// //export default graghql(getUser)(Login); <-- ERROR: 'graghql' is not defined  no-undef (TYPO ERROR)

@@ -202,11 +202,11 @@ class AddCityReview extends Component {
           refetchQueries: [
             {
               query: getTopicBasedInterest,
-              variables: { interestId: this.props.interestId }
+              variables: { interestId: this.state.interestId }
             },
             {
-              query: getTopicBasedInterest,
-              variables: { interestId: this.state.interestId }
+              query: TOPIC_DETAIL_QUERY,
+              variables: { id: this.state.id }
             }
           ]
         })

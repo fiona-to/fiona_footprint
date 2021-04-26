@@ -16,13 +16,14 @@ const app = express();
 app.use(cors());
 app.use(isAuth);
 
+// [NEED TO CONFIG FOR DEPLOYMENT PURPOSE]
 // Connect to mongoose db
 // Set below 'options' to fix issues:
 // 1. DeprecationWarning: Mongoose: `findOneAndUpdate() and `findOneAndDelete()` without the `useFindAndModify`
 // option set to false are deprecated
 // 2. (node:1632) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 mongoose.connect(
-  "mongodb+srv://phuongto:Msjfeng82@cluster0-vwuwt.mongodb.net/fiona_footprint?retryWrites=true&w=majority",
+  "mongodb+srv://phuongto:Msjfeng82@cluster0-vwuwt.mongodb.net/test?retryWrites=true&w=majority",
   { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }
 );
 mongoose.connection.once("open", () => {
@@ -39,7 +40,8 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "client/build")));
+// [NEED TO CONFIG FOR DEPLOYMENT PURPOSE]
+//app.use(express.static(path.join(__dirname, "client/build")));
 
 // production mode
 if (process.env.NODE_ENV === "production") {
