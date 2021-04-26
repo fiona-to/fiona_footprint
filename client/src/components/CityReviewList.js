@@ -14,47 +14,47 @@ import {
   List,
   ListItem,
   IconButton,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
-    padding: 20, //theme.spacing(2),
+    padding: 20,
     textAlign: "left",
     color: theme.palette.text.secondary,
     marginTop: 5,
     marginBottom: 5,
     width: "100%",
     height: 500,
-    overflowY: "auto"
+    overflowY: "auto",
   },
   btnEdit: {
     margin: theme.spacing(1),
-    color: "#ff8080"
+    color: "#ff8080",
   },
   btnDelete: {
     margin: theme.spacing(1),
-    color: "#ffcbcb"
-  }
+    color: "#ffcbcb",
+  },
 }));
 
 const StyledListItem = withStyles({
   root: {
     "&$selected": {
-      backgroundColor: "#d1eecc"
-    }
+      backgroundColor: "#d1eecc",
+    },
   },
-  selected: {}
+  selected: {},
 })(ListItem);
 
-const CityReviewList = props => {
+const CityReviewList = (props) => {
   const [cityId, setCityID] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isInterestChanged, setIsInterestChanged] = useState(false);
@@ -69,15 +69,15 @@ const CityReviewList = props => {
     setSelectedIndex(0);
   }, [props.interestId]);
 
-  const handleAddTopic = value => {
+  const handleAddTopic = (value) => {
     props.handleAddTopic(value);
   };
 
-  const handleEditTopic = value => {
+  const handleEditTopic = (value) => {
     props.handleEditTopic(value);
   };
 
-  const handIdChange = id => {
+  const handIdChange = (id) => {
     setCityID(id);
   };
 
@@ -86,21 +86,21 @@ const CityReviewList = props => {
       .deleteItemMutation({
         variables: {
           id: id,
-          imagePublicId: imagePublicId
+          imagePublicId: imagePublicId,
         },
         refetchQueries: [
           {
             query: getTopicBasedInterest,
-            variables: { interestId: props.interestId }
-          }
-        ]
+            variables: { interestId: props.interestId },
+          },
+        ],
       })
-      .then(data => {
+      .then((data) => {
         setCityID(null);
         props.handleAddTopic(false);
         props.handleEditTopic(false);
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err);
       });
   };
@@ -127,7 +127,6 @@ const CityReviewList = props => {
             <StyledListItem
               className={classes.listItem}
               button
-              // selected={city.id === cityId}
               selected={index === selectedIndex}
               onClick={() => {
                 setCityID(city.id);
@@ -212,7 +211,7 @@ export default compose(
     getTopicBasedInterest,
     { name: "getTopicBasedInterestQuery" },
     {
-      options: props => ({ variables: { interestId: props.interestId } })
+      options: (props) => ({ variables: { interestId: props.interestId } }),
     }
   )
 )(CityReviewList);
